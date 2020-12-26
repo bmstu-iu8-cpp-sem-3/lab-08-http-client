@@ -47,7 +47,7 @@ target_link_libraries(${PROJECT_NAME}-lib PUBLIC asio::asio_headeronly Beast::Be
 target_link_libraries(${PROJECT_NAME}-app asio::asio_static ${PROJECT_NAME}-lib)
 
 if (BUILD_TESTS)
-    file(GLOB_RECURSE PROJECT_TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/sources/*.cpp")
+    file(GLOB_RECURSE PROJECT_TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp")
     add_executable(tests ${PROJECT_TEST_SOURCES})
     target_link_libraries(tests ${PROJECT_NAME}-lib GTest::gtest_main)
     enable_testing()
