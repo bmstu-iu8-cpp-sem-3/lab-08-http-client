@@ -25,6 +25,10 @@ string(APPEND CMAKE_CXX_FLAGS " -pedantic -Werror -Wall -Wextra")
 string(APPEND CMAKE_CXX_FLAGS " -Wno-unused-command-line-argument")
 string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
 
+hunter_add_package(asio)
+find_package(asio CONFIG REQUIRED)
+hunter_add_package(Beast)
+find_package(Beast CONFIG REQUIRED)
 hunter_add_package(GTest)
 find_package(GTest CONFIG REQUIRED)
 
@@ -39,7 +43,8 @@ target_include_directories(${PROJECT_NAME}-lib PUBLIC
         "$<INSTALL_INTERFACE:include>"
         )
 
-target_link_libraries(${PROJECT_NAME}-app ${PROJECT_NAME}-lib)
+target_link_libraries(${PROJECT_NAME}-lib PUBLIC asio::asio_headeronly Beast::Beast)
+target_link_libraries(${PROJECT_NAME}-app asio::asio_static ${PROJECT_NAME}-lib)
 
 if (BUILD_TESTS)
     file(GLOB_RECURSE PROJECT_TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/sources/*.cpp")
