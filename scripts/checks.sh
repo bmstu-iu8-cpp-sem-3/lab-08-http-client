@@ -2,8 +2,10 @@
 
 set -e
 
-declare -r FILTER=-build/c++11,-runtime/references,\
--whitespace/braces,-whitespace/indent,-whitespace/comments,-build/include_order
+cmake --version
+
+declare -r FILTER=-build/c++11,-runtime/references,-runtime/indentation_namespace,\
+-whitespace/braces,-whitespace/indent,-whitespace/comments,-whitespace/line_length,-build/include_order
 
 find ./include/ ./scripts/ ./sources/ -name "*.cpp" -or -name "*.hpp" -or -name ".h" | xargs -0 cpplint --filter=$FILTER
 
