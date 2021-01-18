@@ -2,12 +2,8 @@
 #include <boost/log/trivial.hpp>
 #include <boost/thread.hpp>
 #include <chrono>
-#include <header.hpp>
 #include <iostream>
-#include <mutex>
-#include <random>
 #include <string>
-#include <vector>
 
 using boost::asio::buffer;
 using boost::asio::ip::tcp;
