@@ -24,6 +24,7 @@ class talk_to_srv {
  public:
   talk_to_srv(const std::string& username)
       : sock(service), started(true), name(username) {}
+  talk_to_srv() : sock(service), started(true) {}
 
   void connect(tcp::endpoint endp) { sock.connect(endp); }
 
@@ -90,16 +91,16 @@ class talk_to_srv {
   }
 };
 
-static  talk_to_srv client;
+static talk_to_srv client;
 
-void start_srv() {
+void start_client() {
   std::cout << "Enter username " << std::endl;
   std::string username;
   std::cin >> username;
   tcp::endpoint ep(boost::asio::ip::address::from_string("127.0.0.1"), 8001);
   client.connect(ep);
   client.write_to_srv(username);
-  // std::cout<<client.read_answer()<<std::endl;
+
   while (true) {
     std::string cmd;
     std::cout << "Enter request" << std::endl;
@@ -109,7 +110,7 @@ void start_srv() {
 }
 int main() {
   boost::thread_group pool_thr;
-  pool_thr.create_thread(start_srv);
+  pool_thr.create_thread(start_client);
   pool_thr.join_all();
   return 0;
 }
